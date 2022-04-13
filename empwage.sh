@@ -5,18 +5,17 @@ isPartTime=1;
 isFullTime=2;
 empRatePerHr=20;
 r=$(( RANDOM%3 ));
-if [ $(( isPartTime )) -eq $r ];
-then
-	echo "Employee is Part Time";
-	empHrs=4;
-elif [ $(( $isFullTime )) -eq $r ];
-then
+case $r in
+	1)
+	echo "Employee is Part Time"
+	empHrs=4;;
+	2)
 	echo "Employee is Full Time"
-	empHrs=8;
-else
-	echo "Employee is absent";
-	empHrs=0;
-fi
+	empHrs=8;;
+	*)
+	echo "Employee is absent"
+	empHrs=0;;
+esac
 salary=$(($empHrs*$empRatePerHr))
 echo "Employee working hours is $empHrs"
 echo "Employee salary is $salary"
