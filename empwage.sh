@@ -7,23 +7,26 @@ maxHrsMonth=100;
 empRatePerHr=20;
 numWorkingDays=20;
 
-totalEmpHr=0;
+totalWorkingHr=0;
 totalWorkingDays=0;
 
-while [ $((totalEmpHrs)) -lt $((maxHrsMonth)) ] && [ $((totalWorkingDays)) -lt $((numWorkingDays)) ]
+function calculateWorkingHour() {
+	case $1 in
+		1)
+		workingHrs=4;;
+		2)
+		workingHrs=8;;
+		*)
+		empHrs=0;;
+	esac
+	echo $workingHrs;
+}
+while [ $((totalWorkingHr)) -lt $((maxHrsMonth)) ] && [ $((totalWorkingDays)) -lt $((numWorkingDays)) ]
 do
-	((totalWorkingDays++))
-	r=$(( RANDOM%3 ))
-		case $r in
-			1)
-			empHrs=4;;
-			2)
-			empHrs=8;;
-			*)
-			empHrs=0;;
-		esac
-		totalEmpHrs=$(( $totalEmpHrs + $empHrs ))
+	((totalworkingDays++))
+	workingHrs=$( calculateWorkingHour $((RANDOM%3)) )
+	totalWorkingHr=$((totalWorkingHr + $workingHrs));
 done
 
-		totalSalary=$(( $totalEmpHrs + $empRatePerHr ))
+totalSalary=$(( $totalWorkingHr + $empRatePerHr ))
 		echo $totalSalary
