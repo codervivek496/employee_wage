@@ -10,6 +10,8 @@ numWorkingDays=20;
 totalWorkingHr=0;
 totalWorkingDays=0;
 
+declare -A dailyWage;
+
 function calculateWorkingHour() {
 	case $1 in
 		1)
@@ -31,7 +33,7 @@ do
 	((totalworkingDays++))
 	workingHrs=$( calculateWorkingHour $((RANDOM%3)) )
 	totalWorkingHr=$((totalWorkingHr + $workingHrs));
-	dailyWage[$totalWorkingDays]="$( getEmpWage $workingHrs )"
+	dailyWage["$totalWorkingDays"]="$( getEmpWage $workingHrs )"
 done
 
 totalSalary=$(( $totalWorkingHr + $empRatePerHr ))
