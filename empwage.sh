@@ -17,16 +17,24 @@ function calculateWorkingHour() {
 		2)
 		workingHrs=8;;
 		*)
-		empHrs=0;;
+		workingHrs=0;;
 	esac
 	echo $workingHrs;
+}
+function getEmpWage() {
+	local workingHrs=$1
+	wage=$(( $workingHrs * $((EmpRatePerHr)) ))
+	echo $wage
 }
 while [ $((totalWorkingHr)) -lt $((maxHrsMonth)) ] && [ $((totalWorkingDays)) -lt $((numWorkingDays)) ]
 do
 	((totalworkingDays++))
 	workingHrs=$( calculateWorkingHour $((RANDOM%3)) )
 	totalWorkingHr=$((totalWorkingHr + $workingHrs));
+	dailyWage[$totalWorkingDays]="$( getEmpWage $workingHrs )"
 done
 
 totalSalary=$(( $totalWorkingHr + $empRatePerHr ))
-		echo $totalSalary
+	echo "total salary is " $totalSalary
+	echo  "Daily wage is "  ${dailyWage[@]}
+
